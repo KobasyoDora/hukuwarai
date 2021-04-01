@@ -9,9 +9,15 @@
 
 <body style="margin: 0;padding: 0;">
 
-    <div id="start" class="startWrapper">
+<div id="reset-end" style="width: 500;margin: 0 0 0 auto;">
+	<button type="button" onclick="resetClick()">reset<br>リセット</button>
+	<button type="button" onclick="endClick()">end<br>終了</button>
+</div>
+
+<div id="start" class="startWrapper">
         <button class="startbutton" type="button" onclick="startClick()">START<br>スタート</button>
     </div>
+
 
     <div id="hukuwarai" class="wrapper">
         <canvas id="cnvs" width="1000px" height="1000px"></canvas>
