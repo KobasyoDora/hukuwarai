@@ -1,4 +1,4 @@
-
+var canvas = new fabric.Canvas('cnvs');
 const displayOriginal = document.getElementById("hukuwarai").style.display;
 document.getElementById("hukuwarai").style.display="none";
 
@@ -7,8 +7,16 @@ function startClick(){
 	document.getElementById("start").style.display="none";
 }
 
-$(function(){
-	var canvas = new fabric.Canvas('cnvs');
+function resetClick(){
+	canvas.clear();
+	load();
+}
+
+function endClick(){
+
+}
+
+function load(){
 
 	fabric.Image.fromURL('face1.png',function(oImg){
 		oImg.set({
@@ -25,4 +33,9 @@ $(function(){
 		canvas.add(oImg);
 		oImg.moveTo(1);
 	});
+
+}
+
+$(function(){
+	load();
 });
