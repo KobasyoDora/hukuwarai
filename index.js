@@ -1,4 +1,6 @@
-var canvas = new fabric.Canvas('cnvs');
+var canvas = new fabric.Canvas('cnvs',{
+			preserveObjectStacking: true
+		});
 
 const displayOriginal = document.getElementById("hukuwarai").style.display;
 document.getElementById("hukuwarai").style.display = "none";
@@ -34,7 +36,9 @@ function load() {
             left: (canvas.width - oImg.width * oImg.scaleX) / 2,
         });
         canvas.add(oImg);
+				oImg.moveTo(1);
     });
+		
     parts = ["eye", "eyebrow", "nose", "mouth", "ear"];
     parts_num = [2, 2, 1, 1, 2];
     for (var i = 0; i < 5; i++) {
@@ -46,6 +50,7 @@ function load() {
             oImg.scaleToWidth(100 + scale);
             oImg.set({ top: height, left: width, angle: angle });
             canvas.add(oImg);
+						oImg.moveTo(0);
         });
         if (parts_num[i] == 2) {
             fabric.Image.fromURL('parts/' + parts[i] + '/' + parts[i] + '_' + faceNumber + '.png', function(oImg) {
@@ -56,6 +61,7 @@ function load() {
                 oImg.scaleToWidth(100 + scale);
                 oImg.set({ top: height, left: canvas.width - width, angle: angle });
                 canvas.add(oImg);
+								oImg.moveTo(0);
             });
         }
     }
