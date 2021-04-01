@@ -1,6 +1,6 @@
-var canvas = new fabric.Canvas('cnvs',{
-			preserveObjectStacking: true
-		});
+var canvas = new fabric.Canvas('cnvs', {
+    preserveObjectStacking: true
+});
 
 const displayOriginal = document.getElementById("hukuwarai").style.display;
 document.getElementById("hukuwarai").style.display = "none";
@@ -36,9 +36,9 @@ function load() {
             left: (canvas.width - oImg.width * oImg.scaleX) / 2,
         });
         canvas.add(oImg);
-				oImg.moveTo(1);
+        oImg.moveTo(1);
     });
-		
+
     parts = ["eye", "eyebrow", "nose", "mouth", "ear"];
     parts_num = [2, 2, 1, 1, 2];
     for (var i = 0; i < 5; i++) {
@@ -46,22 +46,32 @@ function load() {
             let height = 100 + Math.floor(Math.random() * (600 + 1));
             let width = 100 + Math.floor(Math.random() * (150 + 1));
             let angle = Math.floor(Math.random() * (200 + 1));
-            let scale = Math.floor((Math.random() - 1) * 20);
-            oImg.scaleToWidth(100 + scale);
-            oImg.set({ top: height, left: width, angle: angle });
+            let scale = (Math.random() - 0.5) / 5
+            oImg.set({
+                top: height,
+                left: width,
+                scaleX: -1 * (1 + scale),
+                scaleY: (1 + scale),
+                angle: angle,
+            });
             canvas.add(oImg);
-						oImg.moveTo(0);
+            oImg.moveTo(0);
         });
         if (parts_num[i] == 2) {
             fabric.Image.fromURL('parts/' + parts[i] + '/' + parts[i] + '_' + faceNumber + '.png', function(oImg) {
                 let height = 100 + Math.floor(Math.random() * (600 + 1));
                 let width = 100 + Math.floor(Math.random() * (150 + 1));
                 let angle = Math.floor(Math.random() * (200 + 1));
-                let scale = Math.floor((Math.random() - 1) * 20);
-                oImg.scaleToWidth(100 + scale);
-                oImg.set({ top: height, left: canvas.width - width, angle: angle });
+                let scale = (Math.random() - 0.5) / 5
+                oImg.set({
+                    top: height,
+                    left: canvas.width - width,
+                    scaleX: -1 * (1 + scale),
+                    scaleY: (1 + scale),
+                    angle: angle,
+                });
                 canvas.add(oImg);
-								oImg.moveTo(0);
+                oImg.moveTo(0);
             });
         }
     }
