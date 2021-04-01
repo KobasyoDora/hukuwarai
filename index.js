@@ -5,12 +5,13 @@ var canvas = new fabric.Canvas('cnvs', {
 const displayOriginal = document.getElementById("hukuwarai").style.display;
 document.getElementById("hukuwarai").style.display = "none";
 
+var displayIndex=[];
+
 function startClick() {
     document.getElementById("hukuwarai").style.display = displayOriginal;
     document.getElementById("start").style.display = "none";
     load();
 }
-
 
 function resetClick() {
     canvas.clear();
@@ -18,7 +19,14 @@ function resetClick() {
 }
 
 function endClick() {
-
+	displayIndex.forEach(function(item, index){
+		if(index==0){
+			item.moveTo(0);
+		}
+		else{
+			item.moveTo(1);
+		}
+	})
 }
 
 function load() {
@@ -26,9 +34,11 @@ function load() {
     var faceNumber = Math.floor(Math.random() * (max + 1));
     console.log(faceNumber)
     faceNumber = 1;
+	displayIndex=[];
 
     //輪郭の生成
     fabric.Image.fromURL('parts/face/face_1.png', function(oImg) {
+		displayIndex.push(oImg);
         oImg.set({
             hasRotationPoint: false,
             hasControls: false,
@@ -36,7 +46,7 @@ function load() {
             left: (canvas.width - oImg.width * oImg.scaleX) / 2,
         });
         canvas.add(oImg);
-        oImg.moveTo(1);
+		    oImg.moveTo(1);
     });
 
     parts = ["eye", "eyebrow", "nose", "mouth", "ear"];
@@ -46,7 +56,8 @@ function load() {
             let height = 100 + Math.floor(Math.random() * (600 + 1));
             let width = 100 + Math.floor(Math.random() * (150 + 1));
             let angle = Math.floor(Math.random() * (200 + 1));
-            let scale = (Math.random() - 0.5) / 5
+            let scale = (Math.random() - 0.5) / 5;
+            displayIndex.push(oImg);
             oImg.set({
                 top: height,
                 left: width,
@@ -62,7 +73,8 @@ function load() {
                 let height = 100 + Math.floor(Math.random() * (600 + 1));
                 let width = 100 + Math.floor(Math.random() * (150 + 1));
                 let angle = Math.floor(Math.random() * (200 + 1));
-                let scale = (Math.random() - 0.5) / 5
+                let scale = (Math.random() - 0.5) / 5;
+                displayIndex.push(oImg);
                 oImg.set({
                     top: height,
                     left: canvas.width - width,
