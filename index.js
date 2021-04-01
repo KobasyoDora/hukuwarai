@@ -5,7 +5,7 @@ var canvas = new fabric.Canvas('cnvs', {
 const displayOriginal = document.getElementById("hukuwarai").style.display;
 document.getElementById("hukuwarai").style.display = "none";
 
-var displayIndex=[];
+var displayIndex = [];
 
 function startClick() {
     document.getElementById("hukuwarai").style.display = displayOriginal;
@@ -20,15 +20,15 @@ function resetClick() {
 
 function endClick() {
 
-	displayIndex.forEach(function(item, index){
-		item.set({selectable: false});
-		if(index==0){
-			item.moveTo(0);
-		}
-		else{
-			item.moveTo(1);
-		}
-	})
+    displayIndex.forEach(function(item, index) {
+        item.set({ selectable: false });
+        if (index == 0) {
+            item.moveTo(0);
+        } else {
+            item.moveTo(1);
+        }
+    })
+    save();
 }
 // canvasを画像で保存
 function save() {
@@ -43,11 +43,11 @@ function load() {
     var faceNumber = Math.floor(Math.random() * (max + 1));
     console.log(faceNumber)
     faceNumber = 1;
-	displayIndex=[];
+    displayIndex = [];
 
     //輪郭の生成
     fabric.Image.fromURL('parts/face/face_1.png', function(oImg) {
-		displayIndex.push(oImg);
+        displayIndex.push(oImg);
         oImg.set({
             hasRotationPoint: false,
             hasControls: false,
@@ -55,7 +55,7 @@ function load() {
             left: (canvas.width - oImg.width * oImg.scaleX) / 2,
         });
         canvas.add(oImg);
-		    oImg.moveTo(1);
+        oImg.moveTo(1);
     });
 
     parts = ["eye", "eyebrow", "nose", "mouth", "ear"];
