@@ -16,8 +16,15 @@ function resetClick() {
 }
 
 function endClick() {
-
+    save();
 }
+// canvasを画像で保存
+function save() {
+    let link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = "face.png";
+    link.click();
+};
 
 function load() {
     var max = 1;
