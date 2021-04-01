@@ -1,9 +1,9 @@
 const displayOriginal = document.getElementById("hukuwarai").style.display;
-document.getElementById("hukuwarai").style.display="none";
+document.getElementById("hukuwarai").style.display = "none";
 
-function startClick(){
-	document.getElementById("hukuwarai").style.display=displayOriginal;
-	document.getElementById("start").style.display="none";
+function startClick() {
+    document.getElementById("hukuwarai").style.display = displayOriginal;
+    document.getElementById("start").style.display = "none";
 }
 
 $(function() {
@@ -39,3 +39,4 @@ $(function() {
             });
         }
     }
+});
