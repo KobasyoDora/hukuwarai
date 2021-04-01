@@ -1,0 +1,20 @@
+.startWrapper {
+    width: 300;
+    margin: 200 auto;
+}
+
+.startbutton {
+    width: 100%;
+    color: #fff;
+    background-color: #eb6100;
+    font-size: 30;
+}
+
+.wrapper {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+#cnvs {
+    border: 1px solid #aaa;
+}
