@@ -1,4 +1,3 @@
-
 var canvas = new fabric.Canvas('cnvs');
 
 const displayOriginal = document.getElementById("hukuwarai").style.display;
@@ -7,19 +6,20 @@ document.getElementById("hukuwarai").style.display = "none";
 function startClick() {
     document.getElementById("hukuwarai").style.display = displayOriginal;
     document.getElementById("start").style.display = "none";
+    load();
 }
 
 
-function resetClick(){
-	canvas.clear();
-	load();
+function resetClick() {
+    canvas.clear();
+    load();
 }
 
-function endClick(){
+function endClick() {
 
 }
 
-function load(){
+function load() {
     var max = 1;
     var faceNumber = Math.floor(Math.random() * (max + 1));
     console.log(faceNumber)
@@ -59,4 +59,4 @@ function load(){
             });
         }
     }
-});
+}
