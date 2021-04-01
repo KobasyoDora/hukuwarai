@@ -1,7 +1,11 @@
-var canvas = new fabric.Canvas('cnvs');
+var canvas = new fabric.Canvas('cnvs', {
+    preserveObjectStacking: true
+});
 
 const displayOriginal = document.getElementById("hukuwarai").style.display;
 document.getElementById("hukuwarai").style.display = "none";
+
+var displayIndex=[];
 
 function startClick() {
     document.getElementById("hukuwarai").style.display = displayOriginal;
@@ -9,14 +13,22 @@ function startClick() {
     load();
 }
 
-
 function resetClick() {
     canvas.clear();
     load();
 }
 
 function endClick() {
-    save();
+
+	displayIndex.forEach(function(item, index){
+		item.set({selectable: false});
+		if(index==0){
+			item.moveTo(0);
+		}
+		else{
+			item.moveTo(1);
+		}
+	})
 }
 // canvasを画像で保存
 function save() {
@@ -31,9 +43,11 @@ function load() {
     var faceNumber = Math.floor(Math.random() * (max + 1));
     console.log(faceNumber)
     faceNumber = 1;
+	displayIndex=[];
 
     //輪郭の生成
     fabric.Image.fromURL('parts/face/face_1.png', function(oImg) {
+		displayIndex.push(oImg);
         oImg.set({
             hasRotationPoint: false,
             hasControls: false,
@@ -41,7 +55,9 @@ function load() {
             left: (canvas.width - oImg.width * oImg.scaleX) / 2,
         });
         canvas.add(oImg);
+		    oImg.moveTo(1);
     });
+
     parts = ["eye", "eyebrow", "nose", "mouth", "ear"];
     parts_num = [2, 2, 1, 1, 2];
     for (var i = 0; i < 5; i++) {
@@ -49,20 +65,34 @@ function load() {
             let height = 100 + Math.floor(Math.random() * (600 + 1));
             let width = 100 + Math.floor(Math.random() * (150 + 1));
             let angle = Math.floor(Math.random() * (200 + 1));
-            let scale = Math.floor((Math.random() - 1) * 20);
-            oImg.scaleToWidth(100 + scale);
-            oImg.set({ top: height, left: width, angle: angle });
+            let scale = (Math.random() - 0.5) / 5;
+            displayIndex.push(oImg);
+            oImg.set({
+                top: height,
+                left: width,
+                scaleX: -1 * (1 + scale),
+                scaleY: (1 + scale),
+                angle: angle,
+            });
             canvas.add(oImg);
+            oImg.moveTo(0);
         });
         if (parts_num[i] == 2) {
             fabric.Image.fromURL('parts/' + parts[i] + '/' + parts[i] + '_' + faceNumber + '.png', function(oImg) {
                 let height = 100 + Math.floor(Math.random() * (600 + 1));
                 let width = 100 + Math.floor(Math.random() * (150 + 1));
                 let angle = Math.floor(Math.random() * (200 + 1));
-                let scale = Math.floor((Math.random() - 1) * 20);
-                oImg.scaleToWidth(100 + scale);
-                oImg.set({ top: height, left: canvas.width - width, angle: angle });
+                let scale = (Math.random() - 0.5) / 5;
+                displayIndex.push(oImg);
+                oImg.set({
+                    top: height,
+                    left: canvas.width - width,
+                    scaleX: (1 + scale),
+                    scaleY: (1 + scale),
+                    angle: angle,
+                });
                 canvas.add(oImg);
+                oImg.moveTo(0);
             });
         }
     }
