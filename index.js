@@ -17,9 +17,12 @@ $(function(){
 			selectable: false,
 		});
 		canvas.add(oImg);
+		oImg.moveTo(0);
 	});
+
 	fabric.Image.fromURL('face1.png',function(oImg){
 		oImg.scaleToWidth(100);
 		canvas.add(oImg);
+		oImg.moveTo(1);
 	});
 });
