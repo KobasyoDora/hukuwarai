@@ -20,6 +20,7 @@ function resetClick() {
 
 function endClick() {
 	displayIndex.forEach(function(item, index){
+		item.set({selectable: false});
 		if(index==0){
 			item.moveTo(0);
 		}
