@@ -19,6 +19,7 @@ function resetClick() {
 }
 
 function endClick() {
+
 	displayIndex.forEach(function(item, index){
 		item.set({selectable: false});
 		if(index==0){
@@ -29,6 +30,13 @@ function endClick() {
 		}
 	})
 }
+// canvasを画像で保存
+function save() {
+    let link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = "face.png";
+    link.click();
+};
 
 function load() {
     var max = 1;
