@@ -8,13 +8,15 @@ function startClick() {
 
 $(function() {
     //キャンバス生成
-    var canvas = new fabric.Canvas('cnvs');
+    var canvas = new fabric.Canvas('cnvs',{
+			preserveObjectStacking: true
+		});
 
     //パーツセットの番号をランダムに選択
     var max = 1;
     var faceNumber = Math.floor(Math.random() * (max + 1));
     console.log(faceNumber)
-
+		
     fabric.Image.fromURL('parts/face/face_1.png', function(oImg) {
         oImg.set({
             hasRotationPoint: false,
@@ -23,7 +25,9 @@ $(function() {
             left: 100
         });
         canvas.add(oImg);
+				oImg.moveTo(1);
     });
+		
     parts = ["eye", "eyebrow", "nose", "mouth", "ear"];
     parts_num = [2, 2, 1, 1, 2];
 
@@ -31,11 +35,13 @@ $(function() {
         fabric.Image.fromURL('parts/' + parts[i] + '/' + parts[i] + '_' + faceNumber + '.png', function(oImg) {
             oImg.scaleToWidth(100);
             canvas.add(oImg);
+						oImg.moveTo(0);
         });
         if (parts_num[i] == 2) {
             fabric.Image.fromURL('parts/' + parts[i] + '/' + parts[i] + '_' + faceNumber + '.png', function(oImg) {
                 oImg.scaleToWidth(-100);
                 canvas.add(oImg);
+								oImg.moveTo(0);
             });
         }
     }
