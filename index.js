@@ -1,16 +1,34 @@
-$(function(){
-var canvas = new fabric.Canvas('cnvs');
+$(function() {
+    //キャンバス生成
+    var canvas = new fabric.Canvas('cnvs');
 
-fabric.Image.fromURL('face1.png',function(oImg){
-	oImg.set({
-		hasRotationPoint: false,
-		hasControls: false,
-		selectable: false,
-	});
-	canvas.add(oImg);
-});
-fabric.Image.fromURL('face1.png',function(oImg){
-	oImg.scaleToWidth(100);
-	canvas.add(oImg);
-});
+    //パーツセットの番号をランダムに選択
+    var max = 1;
+    var faceNumber = Math.floor(Math.random() * (max + 1));
+    console.log(faceNumber)
+
+    fabric.Image.fromURL('parts/face/face_1.png', function(oImg) {
+        oImg.set({
+            hasRotationPoint: false,
+            hasControls: false,
+            selectable: false,
+            left: 100
+        });
+        canvas.add(oImg);
+    });
+    parts = ["eye", "eyebrow", "nose", "mouth", "ear"];
+    parts_num = [2, 2, 1, 1, 2];
+
+    for (var i = 0; i < 5; i++) {
+        fabric.Image.fromURL('parts/' + parts[i] + '/' + parts[i] + '_' + faceNumber + '.png', function(oImg) {
+            oImg.scaleToWidth(100);
+            canvas.add(oImg);
+        });
+        if (parts_num[i] == 2) {
+            fabric.Image.fromURL('parts/' + parts[i] + '/' + parts[i] + '_' + faceNumber + '.png', function(oImg) {
+                oImg.scaleToWidth(-100);
+                canvas.add(oImg);
+            });
+        }
+    }
 });
