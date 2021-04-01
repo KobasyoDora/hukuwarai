@@ -66,7 +66,7 @@ function load() {
                 oImg.set({
                     top: height,
                     left: canvas.width - width,
-                    scaleX: -1 * (1 + scale),
+                    scaleX: (1 + scale),
                     scaleY: (1 + scale),
                     angle: angle,
                 });
