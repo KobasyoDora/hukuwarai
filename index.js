@@ -19,7 +19,6 @@ function resetClick() {
 }
 
 function endClick() {
-
     displayIndex.forEach(function(item, index) {
         item.set({ selectable: false });
         if (index == 0) {
@@ -38,6 +37,36 @@ function save() {
     link.click();
 };
 
+function addImage(url, isTurn) {
+    fabric.Image.fromURL(url, function(oImg) {
+        let height = 100 + Math.floor(Math.random() * (600 + 1));
+        let width = 100 + Math.floor(Math.random() * (150 + 1));
+        let angle = Math.floor(Math.random() * (200 + 1));
+        let scale = (Math.random() - 0.5) / 5;
+        let IWidth = oImg.getScaledWidth();
+        displayIndex.push(oImg);
+        oImg.set({
+            top: height,
+            left: width,
+            scaleX: 100 / IWidth * isTurn * (1 + scale),
+            scaleY: 100 / IWidth * (1 + scale),
+            angle: angle,
+        });
+        canvas.add(oImg);
+        oImg.moveTo(0);
+    });
+}
+
+function addparts(faceNumber, type) {
+    parts = ["eye", "eyebrow", "nose", "mouth", "ear"];
+    parts_num = [2, 2, 1, 1, 2];
+    parts_size = [100, 20, 30, 40, 50];
+    addImage('parts/' + parts[type] + '/' + parts[type] + '_' + faceNumber + '.png', 1)
+    if (parts_num[type] == 2) {
+        addImage('parts/' + parts[type] + '/' + parts[type] + '_' + faceNumber + '.png', -1)
+    }
+}
+
 function load() {
     var max = 1;
     var faceNumber = Math.floor(Math.random() * (max + 1));
@@ -46,7 +75,7 @@ function load() {
     displayIndex = [];
 
     //輪郭の生成
-    fabric.Image.fromURL('parts/face/face_1.png', function(oImg) {
+    fabric.Image.fromURL('parts/face/face_' + faceNumber + '.png', function(oImg) {
         displayIndex.push(oImg);
         oImg.set({
             hasRotationPoint: false,
@@ -58,42 +87,13 @@ function load() {
         oImg.moveTo(1);
     });
 
-    parts = ["eye", "eyebrow", "nose", "mouth", "ear"];
-    parts_num = [2, 2, 1, 1, 2];
+
     for (var i = 0; i < 5; i++) {
-        fabric.Image.fromURL('parts/' + parts[i] + '/' + parts[i] + '_' + faceNumber + '.png', function(oImg) {
-            let height = 100 + Math.floor(Math.random() * (600 + 1));
-            let width = 100 + Math.floor(Math.random() * (150 + 1));
-            let angle = Math.floor(Math.random() * (200 + 1));
-            let scale = (Math.random() - 0.5) / 5;
-            displayIndex.push(oImg);
-            oImg.set({
-                top: height,
-                left: width,
-                scaleX: -1 * (1 + scale),
-                scaleY: (1 + scale),
-                angle: angle,
-            });
-            canvas.add(oImg);
-            oImg.moveTo(0);
-        });
-        if (parts_num[i] == 2) {
-            fabric.Image.fromURL('parts/' + parts[i] + '/' + parts[i] + '_' + faceNumber + '.png', function(oImg) {
-                let height = 100 + Math.floor(Math.random() * (600 + 1));
-                let width = 100 + Math.floor(Math.random() * (150 + 1));
-                let angle = Math.floor(Math.random() * (200 + 1));
-                let scale = (Math.random() - 0.5) / 5;
-                displayIndex.push(oImg);
-                oImg.set({
-                    top: height,
-                    left: canvas.width - width,
-                    scaleX: (1 + scale),
-                    scaleY: (1 + scale),
-                    angle: angle,
-                });
-                canvas.add(oImg);
-                oImg.moveTo(0);
-            });
-        }
+        addparts(faceNumber, i);
+    }
+    //ダミー生成
+    for (var i = 0; i < 3; i++) {
+        type = Math.floor(Math.random() * 5);
+        addParts()
     }
 }
