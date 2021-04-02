@@ -68,15 +68,15 @@ function addparts(faceNumber, type) {
 }
 
 function load() {
-    var max = 1;
-    var faceNumber = Math.floor(Math.random() * (max + 1));
+    var max = 3;
+    var faceNumber = Math.floor(Math.random() * (max)) + 1;
     console.log(faceNumber)
-    faceNumber = 1;
     displayIndex = [];
 
     //輪郭の生成
     fabric.Image.fromURL('parts/face/face_' + faceNumber + '.png', function(oImg) {
         displayIndex.push(oImg);
+        oImg.scaleToWidth(500);
         oImg.set({
             hasRotationPoint: false,
             hasControls: false,
@@ -89,11 +89,27 @@ function load() {
 
 
     for (var i = 0; i < 5; i++) {
-        addparts(faceNumber, i);
+        try {
+            addparts(faceNumber, i);
+        } catch (error) {
+            console.log(error);
+            continue;
+        }
+
     }
     //ダミー生成
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < 2; i++) {
         type = Math.floor(Math.random() * 5);
-        addParts()
+        damyNumber = Math.floor(Math.random() * (max + 1));
+        if (damyNumber == faceNumber) {
+            continue;
+        }
+        try {
+            addparts(4, type);
+        } catch (error) {
+            console.log(error);
+            continue;
+        }
+
     }
 }
